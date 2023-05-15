@@ -1,7 +1,7 @@
 const User = require('../models/user.model');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 exports.createuser = async (req, res) => {
@@ -65,6 +65,17 @@ exports.loginuser = async (req, res) => {
 
         const authToken = jwt.sign(data, process.env.JWT_SECRET);
         res.status(200).json({ authToken });
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send("Internal server error");
+    }
+}
+
+exports.userdetails = async (req, res) => {
+    try {
+        let userId = req.user.id;
+        let user = await User.findById(userId).select("-password");
+        res.status(200).json(user);
     } catch (err) {
         console.log(err.message);
         res.status(500).send("Internal server error");
