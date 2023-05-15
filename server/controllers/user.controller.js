@@ -14,7 +14,7 @@ exports.createuser = async (req, res) => {
             return res.status(400).send({ error: "Sorry! a user with email already exists try another" });
         }
 
-        // Check for errors in validation
+        // Check for any errors in validation
         const error = validationResult(req);
         if (error.isEmpty()) {
             // Password salt generator with syncronus function

@@ -11,6 +11,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 require("./routes/user.routes")(app);
+require("./routes/notes.routes")(app);
 
 app.listen(port, () => {
   console.log(`App is listning on http://localhost:${port}`);
