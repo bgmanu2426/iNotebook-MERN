@@ -33,7 +33,7 @@ exports.createuser = async (req, res) => {
                     id: user.id,
                 },
             }
-            const authToken = jwt.sign(data, process.env.JWT_SECRET)
+            const authToken = jwt.sign(data, '$*IAmAIWhoIsI*$')
             res.status(201).json({ authToken });
         } else {
             res.status(400).json({ errors: error.array() });
@@ -63,7 +63,7 @@ exports.loginuser = async (req, res) => {
             },
         }
 
-        const authToken = jwt.sign(data, process.env.JWT_SECRET);
+        const authToken = jwt.sign(data, '$*IAmAIWhoIsI*$');
         res.status(200).json({ authToken });
     } catch (err) {
         console.log(err.message);

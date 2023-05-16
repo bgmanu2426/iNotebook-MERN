@@ -2,7 +2,7 @@ const express = require('express')
 const connectToMongo = require('./config/db')
 require('dotenv').config()
 
-const port =  process.env.PORT
+const port =  process.env.PORT || 5000;
 const app = express();
 connectToMongo();
 

@@ -9,7 +9,7 @@ const userauth = (req, res, next) => {
     }
     
     try {
-        const data = jwt.verify(token, process.env.JWT_SECRET);
+        const data = jwt.verify(token, '$*IAmAIWhoIsI*$');
         req.user = data.user;
         next();
     } catch (error) {
