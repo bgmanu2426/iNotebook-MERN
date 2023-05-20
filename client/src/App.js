@@ -13,14 +13,10 @@ function App() {
   return (
     <>
       <Router>
-        <Navbar/>
+        <Navbar />
         <Routes>
-          <Route path="/">
-            <Home />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
+          <Route exact path='/' element={<Home />}></Route>
+          <Route exact path='/about' element={<About />}></Route>
         </Routes>
       </Router >
     </>
