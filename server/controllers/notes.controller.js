@@ -31,10 +31,39 @@ exports.createnotes = async (req, res) => {
     }
 }
 
-exports.updatenotes = async (req, res) => {
+exports.updatenote = async (req, res) => {
+    const { title, description, tag } = req.body;
+    // Create new note Object
+    const newNote = {};
+    if (title) { newNote.title = title; }
+    if (description) { newNote.description = description; }
+    if (tag) { newNote.tag = tag; }
 
+    // Check for the note belongs to the user or not
+    const checkUser = await Note.findById(req.params.id);
+    if (!checkUser) {
+        return res.status(404).json({ success: false, error: "Not Found" });
+    }
+    if (checkUser.user.toString() !== req.user.id) {
+        return res.status(401).json({ success: false, error: "Access Denied" });
+    }
+
+    // Get the Note ID to be updated in database
+    const note = await Note.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true });
+    res.status(200).json({ note });
 }
 
-exports.deletenotes = async (req, res) => {
+exports.deletenote = async (req, res) => {
+    // Check for the note belongs to the user or not
+    const checkUser = await Note.findById(req.params.id);
+    if (!checkUser) {
+        return res.status(404).json({ success: false, error: "Not Found" });
+    }
+    if (checkUser.user.toString() !== req.user.id) {
+        return res.status(401).json({ success: false, error: "Access Denied" });
+    }
 
+    // Get the Note ID to be updated in database
+    const note = await Note.findByIdAndDelete(req.params.id);
+    res.status(200).json({ success: true, message: "Note has been deleted", note });
 }

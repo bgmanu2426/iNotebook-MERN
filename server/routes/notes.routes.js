@@ -14,13 +14,13 @@ module.exports = (app) => {
         userController.createnotes
     );
 
-    //Update a note using POST at '/api/user/updatenotes'. Login required
-    app.put("/api/notes/updatenotes",
+    //Update a note using POST at '/api/user/updatenote'. Login required
+    app.put("/api/notes/updatenote/:id",
         userauth,
         body('title', "Enter a valid title").isLength({ min: 3 }),
         body('password').isLength({ min: 7 }).withMessage("Enter a valid description"),
-        userController.updatenotes);
+        userController.updatenote);
 
-    //Delete a note using POST at '/api/user/deletenotes'. Login required
-    app.delete("/api/notes/deletenotes", userauth, userController.deletenotes);
+    //Delete a note using POST at '/api/user/deletenote'. Login required
+    app.delete("/api/notes/deletenote/:id", userauth, userController.deletenote);
 }
