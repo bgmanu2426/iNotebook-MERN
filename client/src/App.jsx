@@ -8,19 +8,24 @@ import {
 import Navbar from './components/Navbar';
 import About from './components/About';
 import Home from './components/Home';
-import Contact from './components/contact';
+import Contact from './components/Contact';
+import NoteState from './context/notes/NoteState';
+import Alert from './components/Alert';
 
-function App() {
+const App = () => {
   return (
     <>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route exact path='/' element={<Home />}></Route>
-          <Route exact path='/about' element={<About />}></Route>
-          <Route exact path='/contact' element={<Contact />}></Route>
-        </Routes>
-      </Router >
+      <NoteState>
+        <Router>
+          <Navbar />
+          <Alert message="This is message" alert="title" />
+          <Routes>
+            <Route exact path='/' element={<Home />}></Route>
+            <Route exact path='/about' element={<About />}></Route>
+            <Route exact path='/contact' element={<Contact />}></Route>
+          </Routes>
+        </Router >
+      </NoteState>
     </>
   );
 }

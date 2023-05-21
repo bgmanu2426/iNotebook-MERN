@@ -5,12 +5,13 @@ import {
     TextInput,
     Textarea
 } from "flowbite-react";
+import NotesTable from './NotesTable';
 
-function Home() {
+const Home = () => {
     return (
         <>
-            <h1 className='text-2xl text-center font-black my-3'>Add Notes</h1>
-            <form className="flex flex-col gap-4 w-1/2 m-auto">
+            <h1 className='text-2xl text-center font-black my-2'>Add Notes</h1>
+            <form className="flex flex-col gap-3 w-1/2 m-auto">
                 <div>
                     <div className="mb-2 block">
                         <Label htmlFor="title" value="Enter title" />
@@ -31,6 +32,9 @@ function Home() {
                 </div>
                 <Button color="dark" type="submit">Submit</Button>
             </form>
+
+            <h2 className='text-2xl text-center font-black mt-6'>Your notes</h2>
+            <NotesTable />
         </>
     )
 }

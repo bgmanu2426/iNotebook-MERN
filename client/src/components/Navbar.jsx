@@ -20,7 +20,7 @@ const menuItems = [
     }
 ]
 
-function Navbar() {
+const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false)
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen)
@@ -49,10 +49,7 @@ function Navbar() {
                         <ul className="ml-12 inline-flex space-x-8">
                             {menuItems.map((item) => (
                                 <li key={item.name}>
-                                    <Link
-                                        to={item.href}
-                                        className="inline-flex items-center font-semibold text-black text-sm hover:text-gray-500"
-                                    >
+                                    <Link to={item.href} className="inline-flex items-center font-semibold text-black text-sm hover:text-gray-500">
                                         {item.name}
                                     </Link>
                                 </li>
