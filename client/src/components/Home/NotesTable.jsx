@@ -1,11 +1,10 @@
 import { Table } from 'flowbite-react'
 import React, { useContext } from 'react'
-import noteContext from '../context/notes/noteContext'
+import noteContext from '../../context/notes/noteContext'
 
 const NotesTable = () => {
     const context = useContext(noteContext);
-    // eslint-disable-next-line no-unused-vars
-    const { notes, setNotes } = context;
+    const { notes } = context;
     return (
         <div className='md:w-10/12 md:m-auto my-3'>
             <Table>

@@ -1,12 +1,13 @@
 import React from 'react'
+import { Alert } from "flowbite-react";
 
-const Alert = (props) => {
+const Alerts = (props) => {
     return (
         <>
-            <Alert color="success">
+            <Alert color="success" withBorderAccent={true}>
                 <span>
                     <span className="font-medium">
-                        {props.alert}
+                        {props.info}
                     </span>
                     {' '}{props.message}
                 </span>
@@ -15,4 +16,4 @@ const Alert = (props) => {
     )
 }
 
-export default Alert
+export default Alerts

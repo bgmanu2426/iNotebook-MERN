@@ -5,12 +5,11 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import Navbar from './components/Navbar';
-import About from './components/About';
-import Home from './components/Home';
-import Contact from './components/Contact';
+import Navbar from './components/Header/Navbar';
+import Home from './components/Home/Home';
+import About from './components/About/About';
+import Contact from './components/Contact/Contact';
 import NoteState from './context/notes/NoteState';
-import Alert from './components/Alert';
 
 const App = () => {
   return (
@@ -18,7 +17,6 @@ const App = () => {
       <NoteState>
         <Router>
           <Navbar />
-          <Alert message="This is message" alert="title" />
           <Routes>
             <Route exact path='/' element={<Home />}></Route>
             <Route exact path='/about' element={<About />}></Route>
