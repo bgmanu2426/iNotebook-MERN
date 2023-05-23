@@ -2,7 +2,7 @@ const User = require('../models/user.model');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const config = require('../environment');
 
 exports.createuser = async (req, res) => {
     try {
@@ -33,7 +33,7 @@ exports.createuser = async (req, res) => {
                     id: user.id,
                 },
             }
-            const authToken = jwt.sign(data, '$*IAmAIWhoIsI*$')
+            const authToken = jwt.sign(data, config.jwtSecret)
             res.status(201).json({ authToken });
         } else {
             res.status(400).json({ errors: error.array() });
@@ -63,7 +63,7 @@ exports.loginuser = async (req, res) => {
             },
         }
 
-        const authToken = jwt.sign(data, '$*IAmAIWhoIsI*$');
+        const authToken = jwt.sign(data, config.jwtSecret);
         res.status(200).json({ authToken });
     } catch (err) {
         console.log(err.message);

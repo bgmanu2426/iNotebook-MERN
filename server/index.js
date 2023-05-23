@@ -1,14 +1,16 @@
 const express = require('express')
 const connectToMongo = require('./config/db')
-require('dotenv').config()
+var cors = require('cors')
+const config = require("./environment");
 
-const port =  process.env.PORT ?? 5000;
+const port = config.port ?? 5000;
 const app = express();
 connectToMongo();
 
 // Express Middlewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cors())
 
 require("./routes/user.routes")(app);
 require("./routes/notes.routes")(app);

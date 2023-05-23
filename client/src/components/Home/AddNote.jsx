@@ -42,7 +42,7 @@ const AddNote = () => {
                     </div>
                     <TextInput id="tag" name='tag' type="text" required={true} onChange={onChange} />
                 </div>
-                <Button color="dark" type="submit" onClick={handleOnClick}>Submit</Button>
+                <Button color="dark" className='md:w-full w-[30%] mx-auto' type="submit" onClick={handleOnClick}>Submit</Button>
             </form>
         </>
     )

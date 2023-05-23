@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
+const config = require('../environment');
 
 const connectToMongo = async () => {
-    await mongoose.connect("mongodb://127.0.0.1:27017/iNotebook")
+    await mongoose.connect(config.mongoUri)
         .then(() => {
             console.log("Database connected successfully");
         }).catch((err) => {

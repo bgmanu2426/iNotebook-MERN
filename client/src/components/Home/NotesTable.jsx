@@ -1,10 +1,14 @@
 import { Table } from 'flowbite-react'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import noteContext from '../../context/notes/noteContext'
 
 const NotesTable = () => {
     const context = useContext(noteContext);
-    const { notes } = context;
+    const { notes, deleteNote, getNotes } = context;
+    useEffect(() => {
+        getNotes()
+    }, [getNotes])
+    
     return (
         <div className='md:w-10/12 md:m-auto my-3'>
             <Table>
@@ -40,12 +44,12 @@ const NotesTable = () => {
                                 {note.tag}
                             </Table.Cell>
                             <Table.Cell className='flex md:block'>
-                                <a href="/tables">
-                                    <i className="fa-solid fa-pen-to-square fa-xl md:mr-7 mr-3"></i>
-                                </a>
-                                <a href="/tables">
-                                    <i className="fa-solid fa-trash fa-xl md:ml-7 ml-3"></i>
-                                </a>
+                                {/* <a href="/tables"> */}
+                                <i className="fa-solid fa-pen-to-square fa-xl md:mr-7 mr-3"></i>
+                                {/* </a>
+                                <a href="/tables"> */}
+                                <i className="fa-solid fa-trash fa-xl md:ml-7 ml-3" onClick={() => { deleteNote(note._id) }}></i>
+                                {/* </a> */}
                             </Table.Cell>
                         </Table.Row>
                     ))}

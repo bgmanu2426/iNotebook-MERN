@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const config = require('../environment');
 
 const userauth = (req, res, next) => {
     //Get the users JWT token from header
@@ -9,7 +9,7 @@ const userauth = (req, res, next) => {
     }
     
     try {
-        const data = jwt.verify(token, '$*IAmAIWhoIsI*$');
+        const data = jwt.verify(token, config.jwtSecret);
         req.user = data.user;
         next();
     } catch (error) {
