@@ -10,7 +10,7 @@ module.exports = (app) => {
     app.post("/api/notes/createnotes",
         userauth,
         body('title', "Enter a valid title").isLength({ min: 3 }),
-        body('description').isLength({ min: 7 }).withMessage("Enter a valid description"),
+        body('description', "Enter a valid description").isLength({ min: 7 }),
         userController.createnotes
     );
 
@@ -18,7 +18,7 @@ module.exports = (app) => {
     app.put("/api/notes/updatenote/:id",
         userauth,
         body('title', "Enter a valid title").isLength({ min: 3 }),
-        body('password').isLength({ min: 7 }).withMessage("Enter a valid description"),
+        body('description', "Enter a valid description").isLength({ min: 7 }),
         userController.updatenote);
 
     //Delete a note using POST at '/api/user/deletenote'. Login required

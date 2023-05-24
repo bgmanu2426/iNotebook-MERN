@@ -8,7 +8,6 @@
     "@testing-library/user-event": "^13.5.0",
     "config": "^3.3.9",
     "dotenv": "^16.0.3",
-    "flowbite": "^1.6.5",
     "flowbite-react": "^0.4.4",
     "lucide-react": "^0.220.0",
     "react": "^18.2.0",
@@ -22,7 +21,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "both": "concurrently \"npm start\" \"node ../server/index.js\""
+    "both": "concurrently \"npm start\" \"nodemon ../server/index.js\""
   },
   "eslintConfig": {
     "extends": [

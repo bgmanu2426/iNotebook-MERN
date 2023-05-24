@@ -17,9 +17,9 @@ exports.createnotes = async (req, res) => {
         const error = validationResult(req);
         if (error.isEmpty()) {
         } else {
-            res.status(400).json({ errors: error.array() });
+            return res.status(400).json({ errors: error.array() });
         }
-
+        
         const { title, description, tag } = req.body;
         const notes = await Note.create({
             title, description, tag, user: req.user.id

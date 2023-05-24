@@ -1,5 +1,4 @@
 import React from 'react'
-import NotesTable from './NotesTable';
 import AddNote from './AddNote';
 import Alert from './Alerts';
 import Expire from './Expire';
@@ -14,9 +13,6 @@ const Home = () => {
             <Expire delay="5000"> <Alert info={AlertProps.info} message={AlertProps.message} /> </Expire>
             <h1 className='text-2xl text-center font-black my-2'>Add Notes</h1>
             <AddNote />
-
-            <h2 className='text-2xl text-center font-black mt-6'>Your notes</h2>
-            <NotesTable />
         </>
     )
 }
