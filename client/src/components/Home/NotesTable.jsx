@@ -1,62 +1,28 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 import { Table } from 'flowbite-react'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import noteContext from '../../context/notes/noteContext'
+
 
 const NotesTable = (props) => {
     const context = useContext(noteContext);
-    const { notes, deleteNote, getNotes } = context;
-    useEffect(() => {
-        getNotes()
-    }, [])
-
-
+    const { deleteNote } = context;
     return (
         <>
-            <h2 className='text-2xl text-center font-black mt-6'>Your notes</h2>
-            <div className='md:w-10/12 md:m-auto my-3'>
-                <Table>
-                    <Table.Head>
-                        <Table.HeadCell className='text-black text-base'>
-                            Title
-                        </Table.HeadCell>
-                        <Table.HeadCell className='text-black text-base'>
-                            Description
-                        </Table.HeadCell>
-                        <Table.HeadCell className='text-black text-base'>
-                            Tag
-                        </Table.HeadCell>
-                        <Table.HeadCell className='w-40'>
-                            <span className="sr-only">
-                                Edit
-                            </span>
-                            <span className="sr-only">
-                                Delete
-                            </span>
-                        </Table.HeadCell>
-                    </Table.Head>
-                    <Table.Body className="divide-y text-black">
-                        {notes.map((note) => (
-                            <Table.Row key={note._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell>
-                                    {note.title}
-                                </Table.Cell>
-                                <Table.Cell>
-                                    {note.description}
-                                </Table.Cell>
-                                <Table.Cell>
-                                    {note.tag}
-                                </Table.Cell>
-                                <Table.Cell className='flex md:block'>
-                                    <i className="fa-solid fa-pen-to-square fa-xl md:mr-7 mr-3 cursor-pointer" onClick={props.updateNote}></i>
-                                    <i className="fa-solid fa-trash fa-xl md:ml-7 ml-3 cursor-pointer" onClick={() => { deleteNote(note._id) }}></i>
-                                </Table.Cell>
-                            </Table.Row>
-                        ))}
-                    </Table.Body>
-                </Table>
-            </div>
+            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Cell>
+                    {props.note.title}
+                </Table.Cell>
+                <Table.Cell>
+                    {props.note.description}
+                </Table.Cell>
+                <Table.Cell>
+                    {props.note.tag}
+                </Table.Cell>
+                <Table.Cell className='flex md:block'>
+                    <i className="fa-solid fa-pen-to-square fa-xl md:mr-7 mr-3 cursor-pointer" onClick={() => { props.updateNotes(props.note) }}></i>
+                    <i className="fa-solid fa-trash fa-xl md:ml-7 ml-3 cursor-pointer" onClick={() => { deleteNote(props.note._id) }}></i>
+                </Table.Cell>
+            </Table.Row>
         </>
     )
 }
