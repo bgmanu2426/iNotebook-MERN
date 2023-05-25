@@ -1,10 +1,10 @@
 import React from 'react'
 import { Menu, X } from 'lucide-react'
 import { Link, useLocation } from "react-router-dom";
-import {
-    DarkThemeToggle,
-    Flowbite
-} from "flowbite-react";
+// import {
+//     DarkThemeToggle,
+//     Flowbite
+// } from "flowbite-react";
 
 const menuItems = [
     {
@@ -32,7 +32,7 @@ const Navbar = () => {
     }, [location]);
     return (
         <>
-            <div className="relative w-full bg-white">
+            <div className="relative w-full py-3 bg-white">
                 <div className="mx-auto flex items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
                     <div className="inline-flex items-center space-x-2">
                         <span>
@@ -49,7 +49,10 @@ const Navbar = () => {
                         <ul className="ml-12 inline-flex space-x-8">
                             {menuItems.map((item) => (
                                 <li key={item.name}>
-                                    <Link to={item.href} className="inline-flex items-center font-semibold text-black text-sm hover:text-gray-500">
+                                    <Link
+                                        to={item.href}
+                                        className="inline-flex items-center font-semibold text-black text-sm hover:text-gray-500"
+                                    >
                                         {item.name}
                                     </Link>
                                 </li>
@@ -57,21 +60,23 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <div className="hidden space-x-2 lg:block">
-                        <Flowbite>
+                        {/* <Flowbite>
                             <DarkThemeToggle />
-                        </Flowbite>
-                        <button
-                            type="button"
+                        </Flowbite> */}
+                        <Link
+                            role="button"
                             className="rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-black hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                            to='/signup'
                         >
-                            Sign In
-                        </button>
-                        <button
-                            type="button"
-                            className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                            Sign Up
+                        </Link>
+                        <Link
+                            role="button"
+                            className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black hover:bg-black hover:text-white"
+                            to='/login'
                         >
                             Log In
-                        </button>
+                        </Link>
                     </div>
                     <div className="lg:hidden">
                         <Menu onClick={toggleMenu} className="h-6 w-6 cursor-pointer" />
@@ -125,18 +130,20 @@ const Navbar = () => {
                                         </nav>
                                     </div>
                                     <div className="mt-2 space-y-2">
-                                        <button
-                                            type="button"
+                                        <Link
+                                            role="button"
                                             className="w-full rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                                            to='/signup'
                                         >
-                                            Sign In
-                                        </button>
-                                        <button
-                                            type="button"
+                                            Sign Up
+                                        </Link>
+                                        <Link
+                                            role="button"
                                             className="w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                                            to='/login'
                                         >
                                             Log In
-                                        </button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

@@ -8,7 +8,6 @@ import { Table } from 'flowbite-react'
 import React, { useContext, useState, useRef, useEffect } from 'react'
 import { Modal, Button, Label, TextInput } from "flowbite-react";
 import noteContext from '../../context/notes/noteContext'
-import { ModalFooter } from 'flowbite-react/lib/esm/components/Modal/ModalFooter';
 
 const Home = () => {
     const AlertProps = {
@@ -69,13 +68,13 @@ const Home = () => {
                                     <div className="mb-2 block">
                                         <Label htmlFor="etitle" value="Enter title" />
                                     </div>
-                                    <TextInput type='text' id="etitle" name="etitle" value={note.etitle} onChange={onChange} required={true} />
+                                    <TextInput type='text' id="etitle" name="etitle" value={note.etitle} onChange={onChange} minLength={3} required={true} />
                                 </div>
                                 <div>
                                     <div className="mb-2 block">
                                         <Label htmlFor="edescription" value="Enter description" />
                                     </div>
-                                    <TextInput id="edescription" name="edescription" type="text" value={note.edescription} onChange={onChange} required={true} />
+                                    <TextInput id="edescription" name="edescription" type="text" value={note.edescription} onChange={onChange} minLength={7} required={true} />
                                 </div>
                                 <div>
                                     <div className="mb-2 block">
@@ -121,6 +120,9 @@ const Home = () => {
                         </Table.HeadCell>
                     </Table.Head>
                     <Table.Body className="divide-y text-black">
+                        <div className='text-xl absolute left-[42%] font-bold my-5'>
+                            {notes.length === 0 && "No Notes to Display"}
+                        </div>
                         {notes.map((note) => (
                             <NotesTable key={note._id} note={note} updateNotes={updateNotes} />
                         ))}

@@ -19,6 +19,7 @@ const AddNote = () => {
         e.preventDefault();
         addNotes(note.title, note.description, note.tag);
         setFetchNotes(true);
+        addNote({ title: "", description: "", tag: "" })
     }
     const onChange = (e) => {
         addNote({ ...note, [e.target.name]: e.target.value })
@@ -39,24 +40,22 @@ const AddNote = () => {
                     <div className="mb-2 block">
                         <Label htmlFor="title" value="Enter title" />
                     </div>
-                    <TextInput id="title" type="text" name='title' placeholder="Enter your title here" required={true} onChange={onChange} />
+                    <TextInput id="title" type="text" name='title' placeholder="Enter your title here" onChange={onChange} minLength={3} value={note.title} required={true} />
                 </div>
                 <div id="description">
                     <div className="mb-2 block">
                         <Label htmlFor="description" value="Enter description" />
                     </div>
-                    <Textarea id="description" name='description' required={true} rows={4} onChange={onChange} />
+                    <Textarea id="description" name='description' required={true} onChange={onChange} minLength={7} value={note.description} rows={4} />
                 </div>
                 <div>
                     <div className="mb-2 block">
                         <Label htmlFor="tag" value="Enter tag" />
                     </div>
-                    <TextInput id="tag" name='tag' type="text" required={true} onChange={onChange} />
+                    <TextInput id="tag" name='tag' type="text" onChange={onChange} value={note.tag} required={true} />
                 </div>
-                <Button color="dark" className='md:w-full w-[30%] mx-auto' disabled={note.title.length < 3 || note.description.length < 7} type="submit" onClick={handleOnClick}>Submit</Button>
+                <Button color="dark" className='md:w-full w-[30%] mx-auto' disabled={note.title.length < 3 || note.description.length < 7} type="submit" onClick={handleOnClick}>Add Note</Button>
             </form>
-
-
         </>
     )
 }
