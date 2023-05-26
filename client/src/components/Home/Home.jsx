@@ -41,7 +41,8 @@ const Home = () => {
         setNote({ id: currentNote._id, editTitle: currentNote.title, editDescription: currentNote.description, editTag: currentNote.tag })
     }
 
-    const handleClick = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         refClose.current.click();
         updateNote(note.id, note.editTitle, note.editDescription, note.editTag);
     }
@@ -62,7 +63,7 @@ const Home = () => {
                     <div className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
                         <h3 className="text-xl text-gray-900 dark:text-white text-center font-bold">Update Note</h3>
                         <hr />
-                        <form className="flex flex-col">
+                        <form onSubmit={handleSubmit} className="flex flex-col">
                             <Modal.Body className='space-y-5'>
                                 <div>
                                     <div className="mb-2 block">
@@ -84,7 +85,7 @@ const Home = () => {
                                 </div>
                             </Modal.Body>
                             <Modal.Footer>
-                                <Button onClick={handleClick} disabled={note.editTitle.length < 3 || note.editDescription.length < 7}>Update Note</Button>
+                                <Button type='submit'>Update Note</Button>
                                 <Button ref={refClose} onClick={handleModalClose}>Close</Button>
                             </Modal.Footer>
                         </form>
@@ -123,14 +124,14 @@ const Home = () => {
 
                         <Table.Row className='text-xl absolute left-[42%] font-bold my-5'>
                             <Table.Cell>
-                            {notes.length === 0 && "No Notes to Display"}
+                                {notes.length === 0 && "No Notes to Display"}
                             </Table.Cell>
                         </Table.Row>
 
                         {notes.map((note) => (
                             <NotesTable key={note._id} note={note} updateNotes={updateNotes} />
                         ))}
-                        
+
                     </Table.Body>
                 </Table>
             </div>

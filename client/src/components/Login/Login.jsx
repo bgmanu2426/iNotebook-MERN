@@ -1,29 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { ArrowRight } from 'lucide-react'
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import authContext from '../../context/auth/authContext';
 
 const Login = () => {
-    const url = "http://localhost:5000";
+    const context = useContext(authContext);
+    const { loginUser } = context;
 
     const [credentials, setCredentials] = useState({ email: "", password: "" });
-    let navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        const response = await fetch(`${url}/api/user/login`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email: credentials.email, password: credentials.password })
-        });
-        const json = await response.json();
-        if (json.success) {
-            localStorage.setItem("token", json.authToken);
-            navigate("/");
-        } else {
-            alert("Invalid Credentials");
-        }
+        loginUser(credentials.email, credentials.password);
     }
 
     const onChange = (e) => {
@@ -64,6 +52,7 @@ const Login = () => {
                                                 id='email'
                                                 value={credentials.email}
                                                 onChange={onChange}
+                                                required={true}
                                                 placeholder="Email"
                                             ></input>
                                         </div>
@@ -93,6 +82,8 @@ const Login = () => {
                                                 type="password"
                                                 value={credentials.password}
                                                 onChange={onChange}
+                                                required={true}
+                                                minLength={6}
                                                 placeholder="Password"
                                             ></input>
                                         </div>

@@ -1,27 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { ArrowRight } from 'lucide-react'
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import authContext from '../../context/auth/authContext';
 
 const Signup = () => {
-    const url = "http://localhost:5000";
+    const context = useContext(authContext);
+    const { signupUser } = context;
 
     const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "" });
-    let navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch(`${url}/api/user/createuser`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ name: credentials.name, email: credentials.email, password: credentials.password })
-        });
-        const json = await response.json();
-        if (json.success) {
-            localStorage.setItem("token", json.authToken);
-            navigate("/");
-        }
+        signupUser(credentials.name, credentials.email, credentials.password);
     }
 
     const onChange = (e) => {
