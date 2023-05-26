@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import AddNote from './AddNote';
-import Alert from './Alerts';
-import Expire from './Expire';
+import Alert from '../Alerts/Alerts';
+import Expire from '../Alerts/Expire';
 import NotesTable from './NotesTable';
 import { Table } from 'flowbite-react'
 import React, { useContext, useState, useRef, useEffect } from 'react'
@@ -34,16 +34,16 @@ const Home = () => {
 
     const ref = useRef(null)
     const refClose = useRef(null)
-    const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
+    const [note, setNote] = useState({ id: "", editTitle: "", editDescription: "", editTag: "" })
 
     const updateNotes = (currentNote) => {
         ref.current.click();
-        setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag })
+        setNote({ id: currentNote._id, editTitle: currentNote.title, editDescription: currentNote.description, editTag: currentNote.tag })
     }
 
     const handleClick = () => {
         refClose.current.click();
-        updateNote(note.id, note.etitle, note.edescription, note.etag);
+        updateNote(note.id, note.editTitle, note.editDescription, note.editTag);
     }
 
     const onChange = (e) => {
@@ -66,25 +66,25 @@ const Home = () => {
                             <Modal.Body className='space-y-5'>
                                 <div>
                                     <div className="mb-2 block">
-                                        <Label htmlFor="etitle" value="Enter title" />
+                                        <Label htmlFor="editTitle" value="Enter title" />
                                     </div>
-                                    <TextInput type='text' id="etitle" name="etitle" value={note.etitle} onChange={onChange} minLength={3} required={true} />
+                                    <TextInput type='text' id="editTitle" name="editTitle" value={note.editTitle} onChange={onChange} minLength={3} required={true} />
                                 </div>
                                 <div>
                                     <div className="mb-2 block">
-                                        <Label htmlFor="edescription" value="Enter description" />
+                                        <Label htmlFor="editDescription" value="Enter description" />
                                     </div>
-                                    <TextInput id="edescription" name="edescription" type="text" value={note.edescription} onChange={onChange} minLength={7} required={true} />
+                                    <TextInput id="editDescription" name="editDescription" type="text" value={note.editDescription} onChange={onChange} minLength={7} required={true} />
                                 </div>
                                 <div>
                                     <div className="mb-2 block">
-                                        <Label htmlFor="etag" value="Enter tag" />
+                                        <Label htmlFor="editTag" value="Enter tag" />
                                     </div>
-                                    <TextInput id="etag" name="etag" type="text" value={note.etag} onChange={onChange} required={true} />
+                                    <TextInput id="editTag" name="editTag" type="text" value={note.editTag} onChange={onChange} required={true} />
                                 </div>
                             </Modal.Body>
                             <Modal.Footer>
-                                <Button onClick={handleClick} disabled={note.etitle.length < 3 || note.edescription.length < 7}>Update Note</Button>
+                                <Button onClick={handleClick} disabled={note.editTitle.length < 3 || note.editDescription.length < 7}>Update Note</Button>
                                 <Button ref={refClose} onClick={handleModalClose}>Close</Button>
                             </Modal.Footer>
                         </form>
@@ -120,12 +120,17 @@ const Home = () => {
                         </Table.HeadCell>
                     </Table.Head>
                     <Table.Body className="divide-y text-black">
-                        <div className='text-xl absolute left-[42%] font-bold my-5'>
+
+                        <Table.Row className='text-xl absolute left-[42%] font-bold my-5'>
+                            <Table.Cell>
                             {notes.length === 0 && "No Notes to Display"}
-                        </div>
+                            </Table.Cell>
+                        </Table.Row>
+
                         {notes.map((note) => (
                             <NotesTable key={note._id} note={note} updateNotes={updateNotes} />
                         ))}
+                        
                     </Table.Body>
                 </Table>
             </div>

@@ -11,7 +11,7 @@ exports.createuser = async (req, res) => {
         // Check if the user with the email exists or not
         let userExixts = await User.findOne({ email });
         if (userExixts) {
-            return res.status(400).send({ error: "Sorry! a user with email already exists try another" });
+            return res.status(400).send({ success: false, error: "Sorry! a user with email already exists" });
         }
 
         // Check for any errors in validation
@@ -34,9 +34,9 @@ exports.createuser = async (req, res) => {
                 },
             }
             const authToken = jwt.sign(data, config.jwtSecret)
-            res.status(201).json({ authToken });
+            res.status(201).json({ success: true, authToken });
         } else {
-            res.status(400).json({ errors: error.array() });
+            res.status(400).json({ success: false, errors: error.array() });
         }
     } catch (err) {
         console.log(err.message);
@@ -50,12 +50,12 @@ exports.loginuser = async (req, res) => {
         const { email, password } = req.body;
         let userExixts = await User.findOne({ email });
         if (!userExixts) {
-            return res.status(400).send({ error: "Please login with vaild credentials" });
+            return res.status(400).send({ success: false, error: "Please login with vaild credentials" });
         }
 
         const passwordVerify = bcrypt.compareSync(password, userExixts.password);
         if (!passwordVerify) {
-            return res.status(400).send({ error: "Please login with vaild credentials" });
+            return res.status(400).send({ success: false, error: "Please login with vaild credentials" });
         }
         const data = {
             user: {
@@ -64,7 +64,7 @@ exports.loginuser = async (req, res) => {
         }
 
         const authToken = jwt.sign(data, config.jwtSecret);
-        res.status(200).json({ authToken });
+        res.status(200).json({ success: true, authToken });
     } catch (err) {
         console.log(err.message);
         res.status(500).send("Internal server error");

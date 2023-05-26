@@ -1,11 +1,11 @@
 import React from 'react'
 
-const About = () => {
+const AlertState = () => {
     return (
         <>
-            <h1>About</h1>
+
         </>
     )
 }
 
-export default About
+export default AlertState

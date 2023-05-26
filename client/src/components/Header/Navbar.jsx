@@ -12,9 +12,6 @@ const menuItems = [
         href: '/',
     },
     {
-        name: 'About',
-        href: '/about',
-    }, {
         name: 'Contact',
         href: '/contact'
     }
