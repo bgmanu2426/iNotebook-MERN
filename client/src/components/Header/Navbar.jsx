@@ -1,10 +1,6 @@
 import React from 'react'
 import { Menu, X } from 'lucide-react'
-import { Link, useLocation } from "react-router-dom";
-// import {
-//     DarkThemeToggle,
-//     Flowbite
-// } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 const menuItems = [
     {
@@ -23,10 +19,6 @@ const Navbar = () => {
         setIsMenuOpen(!isMenuOpen)
     }
 
-    let location = useLocation();
-    React.useEffect(() => {
-        console.log(location.pathname);
-    }, [location]);
     return (
         <>
             <div className="relative w-full py-3 bg-white">
@@ -56,25 +48,34 @@ const Navbar = () => {
                             ))}
                         </ul>
                     </div>
-                    <div className="hidden space-x-2 lg:block">
-                        {/* <Flowbite>
-                            <DarkThemeToggle />
-                        </Flowbite> */}
-                        <Link
-                            role="button"
-                            className="rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-black hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                            to='/signup'
-                        >
-                            Sign Up
-                        </Link>
-                        <Link
-                            role="button"
-                            className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black hover:bg-black hover:text-white"
-                            to='/login'
-                        >
-                            Log In
-                        </Link>
-                    </div>
+                    {
+                        !localStorage.getItem('token')
+                            ?
+                            <div className="hidden space-x-2 lg:block">
+                                <Link
+                                    role="button"
+                                    className="rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-black hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                                    to='/signup'
+                                >
+                                    Sign Up
+                                </Link>
+                                <Link
+                                    role="button"
+                                    className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black hover:bg-black hover:text-white"
+                                    to='/login'
+                                >
+                                    Log In
+                                </Link>
+                            </div>
+                            :
+                            <Link
+                                role="button"
+                                className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black hover:bg-black hover:text-white"
+                                to='/logout'
+                            >
+                                Logout
+                            </Link>
+                    }
                     <div className="lg:hidden">
                         <Menu onClick={toggleMenu} className="h-6 w-6 cursor-pointer" />
                     </div>

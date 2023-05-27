@@ -1,20 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import AddNote from './AddNote';
-import Alert from '../Alerts/Alerts';
-import Expire from '../Alerts/Expire';
 import NotesTable from './NotesTable';
 import { Table } from 'flowbite-react'
 import React, { useContext, useState, useRef, useEffect } from 'react'
 import { Modal, Button, Label, TextInput } from "flowbite-react";
 import noteContext from '../../context/notes/noteContext'
+import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
-    const AlertProps = {
-        info: "This is info",
-        message: "And this is a message"
-    }
-
+const Home = (props) => {
+    const navigate = useNavigate();
     const context = useContext(noteContext);
     const { notes, getNotes, updateNote } = context;
 
@@ -27,8 +22,10 @@ const Home = () => {
     }
 
     useEffect(() => {
-        if (!visible) {
+        if (!visible && localStorage.getItem('token')) {
             getNotes()
+        }else{
+            navigate('/login');
         }
     }, [visible])
 
@@ -45,6 +42,7 @@ const Home = () => {
         e.preventDefault();
         refClose.current.click();
         updateNote(note.id, note.editTitle, note.editDescription, note.editTag);
+        props.AlertInfo("success", "Note updated successfully");
     }
 
     const onChange = (e) => {
@@ -93,9 +91,8 @@ const Home = () => {
                 </Modal>
             </React.Fragment>
 
-            <Expire delay="1000"> <Alert info={AlertProps.info} message={AlertProps.message} /> </Expire>
-            <h1 className='text-2xl text-center font-black my-2'>Add Notes</h1>
-            <AddNote />
+            <h1 className='text-2xl text-center font-black mt-2'>Add Notes</h1>
+            <AddNote AlertInfo={props.AlertInfo} />
 
             {/* Notes Table */}
             <h2 className='text-2xl text-center font-black mt-6'>Your notes</h2>
@@ -129,7 +126,7 @@ const Home = () => {
                         </Table.Row>
 
                         {notes.map((note) => (
-                            <NotesTable key={note._id} note={note} updateNotes={updateNotes} />
+                            <NotesTable key={note._id} note={note} AlertInfo={props.AlertInfo} updateNotes={updateNotes} />
                         ))}
 
                     </Table.Body>

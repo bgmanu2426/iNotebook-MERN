@@ -20,7 +20,7 @@ const NotesTable = (props) => {
                 </Table.Cell>
                 <Table.Cell className='flex md:block'>
                     <i className="fa-solid fa-pen-to-square fa-xl md:mr-7 mr-3 cursor-pointer" onClick={() => { props.updateNotes(props.note) }}></i>
-                    <i className="fa-solid fa-trash fa-xl md:ml-7 ml-3 cursor-pointer" onClick={() => { deleteNote(props.note._id) }}></i>
+                    <i className="fa-solid fa-trash fa-xl md:ml-7 ml-3 cursor-pointer" onClick={() => { deleteNote(props.note._id);props.AlertInfo("success", "Notes deleted successfully"); }}></i>
                 </Table.Cell>
             </Table.Row>
         </>

@@ -9,7 +9,7 @@ import {
 } from "flowbite-react";
 import noteContext from '../../context/notes/noteContext'
 
-const AddNote = () => {
+const AddNote = (props) => {
     const context = useContext(noteContext);
     const { addNotes, getNotes } = context;
 
@@ -21,6 +21,7 @@ const AddNote = () => {
         addNotes(note.title, note.description, note.tag);
         setFetchNotes(true);
         addNote({ title: "", description: "", tag: "" })
+        props.AlertInfo("success", "Note added successfully");
     }
     const onChange = (e) => {
         addNote({ ...note, [e.target.name]: e.target.value })

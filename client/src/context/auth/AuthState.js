@@ -18,8 +18,9 @@ const AuthState = (props) => {
         if (json.success) {
             localStorage.setItem("token", json.authToken);
             navigate("/");
+            props.AlertInfo("success", "Loggedin successfully");
         } else {
-            alert("Invalid Credentials");
+            props.AlertInfo("failure", "Invalid Credentials");
         }
     }
 
@@ -33,6 +34,7 @@ const AuthState = (props) => {
         });
         const json = await response.json();
         if (json.success) {
+            props.AlertInfo("success", "Account Created Successfully");
             localStorage.setItem("token", json.authToken);
             navigate("/");
         }
