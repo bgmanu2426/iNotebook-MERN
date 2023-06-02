@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { Link } from "react-router-dom";
 import authContext from '../../context/auth/authContext';
+import { signInWithPopup } from "firebase/auth";
+import { auth, GoogleProvider, FacebookProvider } from "../Auth/Firebase";
 
 const Login = () => {
     const context = useContext(authContext);
@@ -16,6 +18,25 @@ const Login = () => {
 
     const onChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
+    }
+
+    // TODO :Complete the app verification to get extra api requests
+    const loginWithGoogle = async () => {
+        try {
+            await signInWithPopup(auth, GoogleProvider);
+            loginUser(auth.currentUser.email, auth.currentUser.uid);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // TODO :Complete the Facebook Login
+    const loginWithFacebook = async () => {
+        try {
+            await signInWithPopup(auth, FacebookProvider)
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -103,6 +124,7 @@ const Login = () => {
                                 <button
                                     type="button"
                                     className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
+                                    onClick={loginWithGoogle}
                                 >
                                     <span className="mr-2 inline-block">
                                         <svg
@@ -120,6 +142,7 @@ const Login = () => {
                                 <button
                                     type="button"
                                     className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
+                                    onClick={loginWithFacebook}
                                 >
                                     <span className="mr-2 inline-block">
                                         <svg

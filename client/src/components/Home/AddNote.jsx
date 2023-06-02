@@ -48,7 +48,7 @@ const AddNote = (props) => {
                         name='title'
                         placeholder="Enter your title here"
                         onChange={onChange}
-                        minLength={3}
+                        minLength="3"
                         value={note.title}
                         required={true}
                     />
@@ -64,7 +64,7 @@ const AddNote = (props) => {
                         placeholder="Enter your description here"
                         required={true}
                         onChange={onChange}
-                        minLength={7}
+                        minLength="7"
                         value={note.description}
                         rows={4}
                     />
@@ -87,6 +87,7 @@ const AddNote = (props) => {
                     color="dark"
                     className='md:w-full w-[30%] mx-auto'
                     type="submit"
+                    disabled={note.description.length < 7 || note.title.length < 3}
                 >
                     Add Note
                 </Button>
