@@ -14,6 +14,8 @@ import Signup from './components/Auth/Signup';
 import Login from './components/Auth/Login';
 import AuthState from './context/auth/AuthState';
 import Logout from './components/Auth/Logout';
+import PageNotFound from './components/Error/PageNotFound';
+import Footer from './components/Footer/Footer';
 
 const App = () => {
   const [alert, setAlert] = useState(null);
@@ -41,7 +43,9 @@ const App = () => {
               <Route exact path='/signup' element={<Signup />}></Route>
               <Route exact path='/login' element={<Login AlertInfo={AlertInfo} />}></Route>
               <Route exact path='/logout' element={<Logout AlertInfo={AlertInfo} />}></Route>
+              <Route path='*' element={<PageNotFound />} />
             </Routes>
+            <Footer />
           </AuthState>
         </Router >
       </NoteState>

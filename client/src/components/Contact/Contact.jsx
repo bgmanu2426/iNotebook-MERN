@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import ContactMap from './ContactMap'
-import { useNavigate } from 'react-router-dom'
 
 const contact = () => {
-    const navigate = useNavigate();
-    
-    useEffect(() => {
-        if (!localStorage.getItem('token')) {
-            navigate("/login");
-        }
-    }, [])
+    //Check if the user is logged in or not and allow him 
+    // const navigate = useNavigate();
+
+    // useEffect(() => {
+    //     if (!localStorage.getItem('token')) {
+    //         navigate("/login");
+    //     }
+    // }, [])
 
     return (
         <>
