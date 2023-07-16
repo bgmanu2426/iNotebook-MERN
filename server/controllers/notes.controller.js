@@ -43,10 +43,10 @@ exports.updatenote = async (req, res) => {
         // Check for the note belongs to the user or not
         const checkUser = await Note.findById(req.params.id);
         if (!checkUser) {
-            return res.status(404).json({ success: false, error: "Not Found" });
+            return res.status(404).json({ success: false, message: "Not Found" });
         }
         if (checkUser.user.toString() !== req.user.id) {
-            return res.status(401).json({ success: false, error: "Access Denied" });
+            return res.status(401).json({ success: false, message: "Access Denied" });
         }
 
         // Get the Note ID to be updated in database
@@ -63,10 +63,10 @@ exports.deletenote = async (req, res) => {
         // Check for the note belongs to the user or not
         const checkUser = await Note.findById(req.params.id);
         if (!checkUser) {
-            return res.status(404).json({ success: false, error: "Not Found" });
+            return res.status(404).json({ success: false, message: "Not Found" });
         }
         if (checkUser.user.toString() !== req.user.id) {
-            return res.status(401).json({ success: false, error: "Access Denied" });
+            return res.status(401).json({ success: false, message: "Access Denied" });
         }
 
         // Get the Note ID to be updated in database

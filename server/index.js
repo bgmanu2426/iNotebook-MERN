@@ -11,7 +11,16 @@ connectToMongo();
 // Express Middlewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors())
+
+// set CORS origin
+app.use(cors(
+  {
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
+  }
+))
 
 require("./routes/user.routes")(app);
 require("./routes/notes.routes")(app);

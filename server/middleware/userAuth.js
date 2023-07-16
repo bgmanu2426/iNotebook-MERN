@@ -6,7 +6,7 @@ const userauth = (req, res, next) => {
     //Get the users JWT token from header
     const token = req.header('auth-token');
     if (!token) {
-        return res.status(401).json({ error: "Please authenticate using valid token" })
+        return res.status(401).json({ message: "Please authenticate using valid token" })
     }
     
     try {
@@ -14,7 +14,7 @@ const userauth = (req, res, next) => {
         req.user = data.user;
         next();
     } catch (error) {
-        res.status(401).json({ error: "Please authenticate using valid token" })
+        res.status(401).json({ message: "Please authenticate using valid token" })
     }
 }
 

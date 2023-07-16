@@ -7,6 +7,7 @@ import React, { useContext, useState, useRef, useEffect } from 'react'
 import { Modal, Button, Label, TextInput } from "flowbite-react";
 import noteContext from '../../context/notes/noteContext'
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const Home = (props) => {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Home = (props) => {
     const { notes, getNotes, updateNote } = context;
 
     const [visible, setVisible] = useState(false);
+    
     const handleModalOpen = () => {
         setVisible(true);
     }
@@ -24,7 +26,7 @@ const Home = (props) => {
     useEffect(() => {
         if (!visible && localStorage.getItem('token')) {
             getNotes()
-        }else{
+        } else {
             navigate('/login');
         }
     }, [visible])
@@ -42,13 +44,10 @@ const Home = (props) => {
         e.preventDefault();
         refClose.current.click();
         updateNote(note.id, note.editTitle, note.editDescription, note.editTag);
-        props.AlertInfo("success", "Note updated successfully");
+        toast.success("Note updated successfully", {
+            duration: 1500
+        })
     }
-
-    const onChange = (e) => {
-        setNote({ ...note, [e.target.name]: e.target.value })
-    }
-
     return (
         <>
             {/* Edit Modal  */}
@@ -67,19 +66,51 @@ const Home = (props) => {
                                     <div className="mb-2 block">
                                         <Label htmlFor="editTitle" value="Enter title" />
                                     </div>
-                                    <TextInput type='text' id="editTitle" name="editTitle" value={note.editTitle} onChange={onChange} minLength={3} required={true} />
+                                    <TextInput
+                                        type='text'
+                                        id="editTitle"
+                                        name="editTitle"
+                                        value={note.editTitle}
+                                        autoComplete='title'
+                                        onChange={(e) => {
+                                            setNote({ ...note, editTitle: e.target.value })
+                                        }}
+                                        minLength={3}
+                                        required
+                                    />
                                 </div>
                                 <div>
                                     <div className="mb-2 block">
                                         <Label htmlFor="editDescription" value="Enter description" />
                                     </div>
-                                    <TextInput id="editDescription" name="editDescription" type="text" value={note.editDescription} onChange={onChange} minLength={7} required={true} />
+                                    <TextInput
+                                        id="editDescription"
+                                        name="editDescription"
+                                        type="text"
+                                        value={note.editDescription}
+                                        autoComplete='description'
+                                        onChange={(e) => {
+                                            setNote({ ...note, editDescription: e.target.value })
+                                        }}
+                                        minLength={7}
+                                        required
+                                    />
                                 </div>
                                 <div>
                                     <div className="mb-2 block">
                                         <Label htmlFor="editTag" value="Enter tag" />
                                     </div>
-                                    <TextInput id="editTag" name="editTag" type="text" value={note.editTag} onChange={onChange} required={true} />
+                                    <TextInput
+                                        id="editTag"
+                                        name="editTag"
+                                        type="text"
+                                        value={note.editTag}
+                                        autoComplete='tag'
+                                        onChange={(e) => {
+                                            setNote({ ...note, editTag: e.target.value })
+                                        }}
+                                        required
+                                    />
                                 </div>
                             </Modal.Body>
                             <Modal.Footer>
@@ -126,7 +157,7 @@ const Home = (props) => {
                         </Table.Row>
 
                         {notes.map((note) => (
-                            <NotesTable key={note._id} note={note} AlertInfo={props.AlertInfo} updateNotes={updateNotes} />
+                            <NotesTable key={note._id} note={note} updateNotes={updateNotes} />
                         ))}
 
                     </Table.Body>

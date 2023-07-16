@@ -8,23 +8,31 @@ import {
     Textarea
 } from "flowbite-react";
 import noteContext from '../../context/notes/noteContext'
+import { toast } from 'react-hot-toast'
 
-const AddNote = (props) => {
+const AddNote = () => {
     const context = useContext(noteContext);
     const { addNotes, getNotes } = context;
 
-    const [note, addNote] = useState({ title: "", description: "", tag: "" })
+    const [note, setNote] = useState({
+        title: "",
+        description: "",
+        tag: ""
+    })
     const [fetchNotes, setFetchNotes] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         addNotes(note.title, note.description, note.tag);
         setFetchNotes(true);
-        addNote({ title: "", description: "", tag: "" })
-        props.AlertInfo("success", "Note added successfully");
-    }
-    const onChange = (e) => {
-        addNote({ ...note, [e.target.name]: e.target.value })
+        setNote({
+            title: "",
+            description: "",
+            tag: ""
+        })
+        toast.success("Note added successfully", {
+            duration: 1500
+        })
     }
 
     useEffect(() => {
@@ -46,11 +54,14 @@ const AddNote = (props) => {
                         id="title"
                         type="text"
                         name='title'
-                        placeholder="Enter your title here"
-                        onChange={onChange}
+                        placeholder="Enter note title"
                         minLength="3"
                         value={note.title}
-                        required={true}
+                        autoComplete='title'
+                        onChange={(e) => {
+                            setNote({ ...note, title: e.target.value })
+                        }}
+                        required
                     />
                 </div>
                 <div id="description">
@@ -61,12 +72,15 @@ const AddNote = (props) => {
                         id="description"
                         type="text"
                         name='description'
-                        placeholder="Enter your description here"
-                        required={true}
-                        onChange={onChange}
+                        placeholder="Enter notes description"
+                        required
+                        autoComplete='description'
                         minLength="7"
                         value={note.description}
                         rows={4}
+                        onChange={(e) => {
+                            setNote({ ...note, description: e.target.value })
+                        }}
                     />
                 </div>
                 <div>
@@ -76,11 +90,14 @@ const AddNote = (props) => {
                     <TextInput
                         id="tag"
                         name='tag'
-                        placeholder='Enter your tag here'
+                        placeholder='Enter notes tag'
                         type="text"
-                        onChange={onChange}
                         value={note.tag}
-                        required={true}
+                        autoComplete='tag'
+                        onChange={(e) => {
+                            setNote({ ...note, tag: e.target.value })
+                        }}
+                        required
                     />
                 </div>
                 <Button

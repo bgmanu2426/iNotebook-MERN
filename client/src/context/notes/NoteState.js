@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import NoteContext from './noteContext'
 
 const NoteState = (props) => {
-    const host = `http://localhost:5000`
     const InitialNotes = []
 
     const [notes, setNotes] = useState(InitialNotes);
@@ -12,7 +11,7 @@ const NoteState = (props) => {
     //Fetch a Note
     const getNotes = async () => {
         try {
-            const response = await fetch(`${host}/api/notes/fetchallnotes`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_HOST_URL}/api/notes/fetchallnotes`, {
                 method: 'GET',
                 headers: {
                     "auth-token": localStorage.getItem('token')
@@ -28,7 +27,7 @@ const NoteState = (props) => {
     //Add a Note
     const addNotes = async (title, description, tag) => {
         try {
-            const response = await fetch(`${host}/api/notes/createnotes`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_HOST_URL}/api/notes/createnotes`, {
                 method: 'POST',
                 headers: {
                     "auth-token": localStorage.getItem('token'),
@@ -46,7 +45,7 @@ const NoteState = (props) => {
     //Edit a Note
     const updateNote = async (id, title, description, tag) => {
         try {
-            const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_HOST_URL}/api/notes/updatenote/${id}`, {
                 method: 'PUT',
                 headers: {
                     "auth-token": localStorage.getItem('token'),
@@ -74,7 +73,7 @@ const NoteState = (props) => {
     //Delete a Note
     const deleteNote = async (id) => {
         try {
-            const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_HOST_URL}/api/notes/deletenote/${id}`, {
                 method: 'DELETE',
                 headers: {
                     "auth-token": localStorage.getItem('token'),
