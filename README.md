@@ -9,6 +9,7 @@
 6. [React-router-DOM](https://reactrouter.com/en)
 7. [Expressjs](https://expressjs.com/en/)
 8. [Firebase](https://console.firebase.google.com)
+9. [Node.js](https://nodejs.org)
 
 Other packahes used are given in `package.json` file of project
 
