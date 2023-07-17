@@ -51,9 +51,7 @@ const Login = () => {
                 toast.success(json.message, {
                     duration: 1500
                 })
-                setTimeout(() => {
-                    navigate("/");
-                }, 1600);
+                navigate("/");
             } else {
                 toast.error(json.message, {
                     duration: 1500

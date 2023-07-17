@@ -9,7 +9,7 @@ import noteContext from '../../context/notes/noteContext'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
-const Home = (props) => {
+const Home = () => {
     const navigate = useNavigate();
     const context = useContext(noteContext);
     const { notes, getNotes, updateNote } = context;
@@ -24,12 +24,12 @@ const Home = (props) => {
     }
 
     useEffect(() => {
-        if (!visible && localStorage.getItem('token')) {
+        if (localStorage.getItem('token')) {
             getNotes()
         } else {
             navigate('/login');
         }
-    }, [visible])
+    }, [])
 
     const ref = useRef(null)
     const refClose = useRef(null)
@@ -123,7 +123,7 @@ const Home = (props) => {
             </React.Fragment>
 
             <h1 className='text-2xl text-center font-black mt-2'>Add Notes</h1>
-            <AddNote AlertInfo={props.AlertInfo} />
+            <AddNote />
 
             {/* Notes Table */}
             <h2 className='text-2xl text-center font-black mt-6'>Your notes</h2>
